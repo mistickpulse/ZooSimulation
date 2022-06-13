@@ -23,7 +23,7 @@ int Zoo::startSimulation()
 		InputType action;
 
 		// If line start with '#' its a command in the input file
-		if (text[0] == '#')
+		if (text[0] == '#' || text == "")
 		{
 			continue;
 		}
@@ -40,7 +40,7 @@ int Zoo::startSimulation()
 			passDays(inputs);
 			break;
 		case InputType::UNKNOWN:
-			std::cout << "Unknow instruction: " << inputs[0] << ", ignoring" << std::endl;
+			std::cout << "Unknow instruction: \"" << inputs[0] << "\", ignoring" << std::endl;
 			break;
 		}
 	}
@@ -48,29 +48,60 @@ int Zoo::startSimulation()
 	return EXIT_SUCCESS;
 }
 
-Animal *Zoo::buyEagle(std::string text)
+Animal *Zoo::buyChicken(const std::vector<std::string> &, bool isMale)
 {
-	bool male;
-	Age age;
-	const auto &tmp = Determine::splitStringBy(text, ' ');
+	return nullptr;
+}
 
-	Sex sexe = Determine::determineSex(tmp[1]);
-	if (sexe == Sex::UNKNOWN)
-	{
-		return nullptr;
-	}
-	age = Determine::determineAge(tmp[2]);
-	std::cout << "Buying new Eagle<" << ((male) ? "male" : "female")
-		  << "> with age :" << age._years << std::endl;
-	return new Eagle(age, male);
+Animal *Zoo::buyTiger(const std::vector<std::string> &, bool isMale)
+{
+	return nullptr;
+}
+
+Animal *Zoo::buyEagle(const std::vector<std::string> &parameters, bool isMale)
+{
+	Age age;
+
+	age = Determine::determineAge(parameters[3]);
+	std::cout << "Buying new Eagle<" << ((isMale) ? "male" : "female")
+		  << "> with " << age << std::endl;
+	return new Eagle(age, isMale);
 }
 
 bool Zoo::buyAnimal(const std::vector<std::string> &parameters)
 {
 	Animal *newAnimal = nullptr;
 	AnimalType type = Determine::determineAnimal(parameters[1]);
+	bool isMale = false;
+
+	Sex sexe = Determine::determineSex(parameters[2]);
+	switch (sexe)
+	{
+	case Sex::MALE:
+		isMale = true;
+		break;
+	case Sex::FEMALE:
+		isMale = false;
+		break;
+	case Sex::UNKNOWN:
+		std::cout << "[Warning] Unrecognized sex for animal : " << parameters[1] << ", can't buy" << std::endl;
+		break;
+	}
+
 	switch (type)
 	{
+	case AnimalType::EAGLE:
+		newAnimal = buyEagle(parameters, isMale);
+		break;
+	case AnimalType::CHICKEN:
+		newAnimal = buyChicken(parameters, isMale);
+		break;
+	case AnimalType::TIGER:
+		newAnimal = buyTiger(parameters, isMale);
+		break;
+	case AnimalType::UNKNOWN:
+		std::cout << "[Warning] Unrecognized animal: " << parameters[1] << ", can't buy" << std::endl;
+		break;
 	}
 
 	if (newAnimal == nullptr)
@@ -89,7 +120,7 @@ bool Zoo::sellAnimal(const std::vector<std::string> &parameters)
 
 bool Zoo::passDays(const std::vector<std::string> &parameters)
 {
-	// std::cout << "pass days" << std::endl;
+	std::cout << "pass days:" << parameters[1] << std::endl;
 	return true;
 }
 
@@ -98,8 +129,9 @@ bool Zoo::setBudget(std::string text)
 	if (text.compare(0, 7, "budget:") != 0)
 		return false;
 
-	budget = std::stof(text.substr(7, text.size() - 7));
-	std::cout << "Zoo budget: " << budget << std::endl;
+	float tmp = std::stof(text.substr(7, text.size() - 7));
+	_accountant.initBudget(tmp);
+	std::cout << "Zoo budget: " << tmp << std::endl;
 	return true;
 }
 

@@ -2,6 +2,8 @@
 #ifndef _AGE
 #define _AGE
 
+#include <iostream>
+
 struct Age
 {
 	int _days = 0;
@@ -42,6 +44,12 @@ struct Age
 		{
 			addMonth();
 		}
+	}
+
+	friend std::ostream &operator<<(std::ostream &stream, const Age &age)
+	{
+		stream << "Age{y:" << age._years << ", m:" << age._months << ", d:" << age._days << "}";
+		return stream;
 	}
 };
 #endif

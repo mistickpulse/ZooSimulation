@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
+project(ZooSimulator)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/module)
 set(CMAKE_CXX_STANDARD 17)
 set(EXECUTABLE_NAME)
@@ -22,8 +23,13 @@ endfunction(message_color)
 
 #####################
 
+## Compilation Flag ##
+SET(GCC_COVERAGE_COMPILE_FLAGS "-Wall -Wextra")
+SET(GCC_COVERAGE_LINK_FLAGS    "")
+SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
+
 ## Habitats Sources & Headers ## 
-set(SRC_HABITATS )
+set(SRC_HABITATS ./src/Habitats/CagesReferences.cpp)
 set(HDR_HABITATS ./src/Habitats/Cages.hpp ./src/Habitats/CagesReferences.hpp)
 
 ## Food Sources & Headers ## 

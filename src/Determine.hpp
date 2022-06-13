@@ -7,15 +7,15 @@ class Determine
 public:
 	static InputType determineInput(std::string text)
 	{
-		if (text == "BUY")
+		if (text == "buy")
 		{
 			return InputType::BUY;
 		}
-		else if (text == "SELL")
+		else if (text == "sell")
 		{
 			return InputType::SELL;
 		}
-		else if (text == "PASS")
+		else if (text == "pass")
 		{
 			return InputType::PASS;
 		}
@@ -67,7 +67,7 @@ public:
 	static std::vector<std::string> splitStringBy(std::string text, char splitter)
 	{
 		std::vector<std::string> ret;
-		int pos;
+		size_t pos;
 		while ((pos = text.find(splitter)) != std::string::npos)
 		{
 			ret.push_back(text.substr(0, pos));

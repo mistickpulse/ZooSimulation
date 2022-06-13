@@ -1,5 +1,7 @@
 budget:60000
 buy eagle male 8
+buy eagle female 16
+
 #buy tiger male 6
 #buy tiger female 3
 #buy eagle male 8
