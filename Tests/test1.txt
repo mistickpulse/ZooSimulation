@@ -1,0 +1,10 @@
+budget:60000
+buy eagle male 8
+#buy tiger male 6
+#buy tiger female 3
+#buy eagle male 8
+#buy eagle female 5
+#buy chicken male 15
+#buy chicken female 1
+#sell tiger male
+pass 130
