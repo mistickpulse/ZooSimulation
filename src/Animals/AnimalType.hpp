@@ -15,6 +15,7 @@ enum class AnimalType
 	TIGER,
 	CHICKEN,
 	EAGLE,
+	UNKNOWN,
 };
 
 #endif

@@ -33,7 +33,7 @@ set(HDR_FOOD ./src/Foods/foodPrice.hpp ./src/Foods/FoodType.hpp)
 ## Animals Sources & Headers ## 
 set(HDR_ANIMAL ./src/Animals/Animal.hpp ./src/Animals/AnimalType.hpp ./src/Animals/Eagle.hpp)
 
-set(SRC ${SRC_FOOD} ${SRC_ANIMAL} ${SRC_HABITATS} ./src/main.cpp)
+set(SRC ${SRC_FOOD} ${SRC_ANIMAL} ${SRC_HABITATS} ./src/main.cpp ./src/Zoo.cpp)
 set(HDR ${HDR_FOOD} ${HDR_ANIMAL} ${HDR_HABITATS} ./src/Zoo.hpp)
 
 message_color(${GREEN} "Starting Compilation")
